@@ -56,7 +56,7 @@ class StringFuncs{
         return true;
     }
     //URLify
-    String URLify(char[] str, int length){
+    char[] URLify(char[] str, int length){
         char[] tempArr = new char[length];
         for(int i=0; i<length; i++){
             if(str[i]== (' ')){
@@ -82,6 +82,9 @@ class StringFuncs{
         }
         //hello world itisf
         //hello%20world%20itisf
-        return "";
+        for(int i=0; i<str.length; i++){
+            System.out.print(str[i]);
+        }
+        return str;
     }
 }
