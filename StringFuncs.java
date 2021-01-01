@@ -3,88 +3,61 @@ import java.util.HashMap;
 class StringFuncs{
     //isUnique
     boolean isUnique(String str){
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        if(str.length() > 128){
+            return false;
+        }
+        boolean[] char_set = new boolean[128];
         for(int i=0; i<str.length(); i++){
-            if(map.containsKey(str.substring(i,i+1))==false){
-                map.put(str.substring(i,i+1), 1);
-            }
-            else{
+            int val = str.charAt(i);
+            if(char_set[val]){
                 return false;
             }
+            char_set[val] = true;
         }
         return true;
     }
     //checkPermutation
     boolean checkPermutation(String str1, String str2){
-        String greater = null;
-        String less = null;
-        HashMap<String,Integer> mapGreater = new HashMap<String, Integer>();
-        HashMap<String, Integer> mapLess = new HashMap<String, Integer>();
-        if(str1.length()<str2.length()){
-            greater = str2;
-            less = str1;
+        if(str1.length() != str2.length()){
+            return false;
         }
-        else{
-            greater = str1;
-            less = str1;
+        int letters[] = new int[128];
+        //coint chars in str1
+        char[] s_array = str1.toCharArray();
+        for(char c: s_array){
+            letters[c]++;
         }
-        //put greater's chars in hashmap
-        for(int i=0; i<greater.length(); i++){
-            String curr = greater.substring(i,i+1);
-            if(mapGreater.containsKey(curr)==false){
-                mapGreater.put(greater.substring(i,i+1), 1);
-            }
-            else{
-                Integer temp = mapGreater.get(curr);
-                mapGreater.put(curr,temp+1);
-            }
-        }
-        //compare greater with less
-        for(int i=0; i<less.length();i++){
-            String curr = less.substring(i, i+1);
-            if(mapGreater.containsKey(curr) == false){
+        //check with str2
+        for(int i=0; i<str2.length(); i++){
+            int c = (int) str2.charAt(i);
+            letters[c]--;
+            if(letters[c]<0){
                 return false;
-            }
-            else if(mapGreater.get(curr) == 0){
-                return false;
-            }
-            else{
-                Integer temp = mapGreater.get(curr);
-                mapGreater.put(curr,temp-1);
             }
         }
         return true;
     }
     //URLify
-    char[] URLify(char[] str, int length){
-        char[] tempArr = new char[length];
-        for(int i=0; i<length; i++){
-            if(str[i]== (' ')){
-                //save overwritten chars    
-                int curr = 0;
-                tempArr[1] = str[i+1];
-                tempArr[2] = str[i+2];
-                for(int z=i+1; z<length; z++){
-                    tempArr[curr] = str[z];
-                    curr++;
-                }
-                //insert new chars
-                str[i] = '%';
-                str[i+1] = '2';
-                str[i+2] = '0';
-                length+=2;
-                curr = 0;
-                for(int x=i+3; x<tempArr.length; x++){
-                    str[x] = tempArr[curr];
-                    curr++;
-                }
+    void URLify(char[] str, int trueLength){
+        int spaceCount = 0;
+        int i=0; 
+        int index = 0;
+        for(int i=0; i<trueLength; i++){
+            if(str[i]==' '){
+                spaceCount++;
             }
         }
-        //hello world itisf
-        //hello%20world%20itisf
-        for(int i=0; i<str.length; i++){
-            System.out.print(str[i]);
+        index = trueLength + spaceCount*2;
+        if(trueLength<str.length){
+            str[trueLength] = '\0'; //end array;
         }
-        return str;
+        for(i=trueLength-1; i>=0; i--){
+            if(str[i]==' '){
+                str[index-1] = '0';
+                str[index-2] = '2';
+                str[index-3] = '%';
+                index = index - 3;
+            }
+        }
     }
 }
