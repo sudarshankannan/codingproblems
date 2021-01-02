@@ -66,10 +66,36 @@ class StringFuncs{
             }
         }
     }
+    //isPalindrome
     boolean isPalidrome(String str){
         for(int i=0; i<str.length(); i++){
             if(!str.substring(i, i+1).equals(str.substring(str.length()-1-i,str.length()-i))){
                 return false;
+            }
+        }
+        return true;
+    }
+    //palPerm - palindrome permutation
+    boolean palPerm(String s){
+        //input "tact Coa"
+        //output: true, "taco cat" "atco cta"
+        s = s.toLowerCase();
+        //create char array of characters and stuff
+        int[] letters = new int[128];
+        char[] s_array = s.toCharArray();
+        for(char c : s_array){
+            letters[c]++;
+        }
+        //iterate through hashmap
+        boolean oddFlag = false; //set to true if we find a single lone character
+        for(int i=0; i<letters.length; i++){
+            if(letters[i]%2 == 1){
+                if(oddFlag == false){
+                    oddFlag = true;
+                }
+                else if(oddFlag==true){
+                    return false;
+                }
             }
         }
         return true;
