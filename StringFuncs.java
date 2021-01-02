@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 class StringFuncs{
     //isUnique
@@ -97,6 +97,66 @@ class StringFuncs{
                     return false;
                 }
             }
+        }
+        return true;
+    }
+    boolean oneAway(String s, String t){
+        //more than one edit case b/c of length
+        if(Math.abs(s.length() - t.length())>1){
+            return false;
+        }
+        //if same string case
+        if(s.equals(t)){
+            return true;
+        }
+        //create hashmaps
+        HashMap<String, Integer> smap = new HashMap<String, Integer>();
+        HashMap<String, Integer> tmap = new HashMap<String, Integer>();
+        //insert items in smap
+        for(int i=0; i<s.length(); i++){
+            String temp = s.substring(i, i+1);
+            if(smap.get(temp)==null){
+                smap.put(temp, 1);
+            }
+            else{
+                int a = smap.get(temp);
+                smap.put(temp, a+1);
+            }
+        }
+        //insert items in tmap
+        for(int i=0; i<t.length(); i++){
+            String temp = t.substring(i, i+1);
+            if(tmap.get(temp)==null){
+                tmap.put(temp, 1);
+            }
+            else{
+                int a = tmap.get(temp);
+                tmap.put(temp, a+1);
+            }
+        }
+        //if same length
+        Iterator i = smap.entrySet().iterator();
+        boolean oneFlag = false;
+        boolean nullFlag = false;
+        while(i.hasNext()){
+            Map.Entry element = (Map.Entry)i.next();
+            String sKey = (String)element.getKey();
+            int sVal = (int)element.getValue();
+            if(tmap.get(sKey) == null){
+                nullFlag = true;
+            }
+            else if(Math.abs(tmap.get(sKey) - sVal) > 1){
+                return false;
+            }
+            else if(Math.abs(tmap.get(sKey) - sVal) == 1){
+                if(oneFlag==true){
+                    return false;
+                }
+                oneFlag = true;
+            }
+        }
+        if(nullFlag==true && oneFlag==true){
+            return false;
         }
         return true;
     }
