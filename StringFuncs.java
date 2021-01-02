@@ -44,7 +44,7 @@ class StringFuncs{
         int spaceCount = 0;
         int i=0; 
         int index = 0;
-        for(int i=0; i<trueLength; i++){
+        for(i=0; i<trueLength; i++){
             if(str[i]==' '){
                 spaceCount++;
             }
@@ -66,5 +66,12 @@ class StringFuncs{
             }
         }
     }
-    
+    boolean isPalidrome(String str){
+        for(int i=0; i<str.length(); i++){
+            if(!str.substring(i, i+1).equals(str.substring(str.length()-1-i,str.length()-i))){
+                return false;
+            }
+        }
+        return true;
+    }
 }
