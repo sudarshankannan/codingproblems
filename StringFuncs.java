@@ -39,6 +39,8 @@ class StringFuncs{
     }
     //URLify
     void URLify(char[] str, int trueLength){
+        //"Mr John Smith    ",13
+        //"Mr%20John%20Smith"
         int spaceCount = 0;
         int i=0; 
         int index = 0;
@@ -58,6 +60,11 @@ class StringFuncs{
                 str[index-3] = '%';
                 index = index - 3;
             }
+            else{
+                str[index-1] = str[i];
+                index--;
+            }
         }
     }
+    
 }
