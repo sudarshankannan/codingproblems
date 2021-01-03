@@ -160,4 +160,23 @@ class StringFuncs{
         }
         return true;
     }
+    //stringComp
+    String stringComp(String s){
+        char[] s_array = s.toCharArray();
+        int[] charcounts = new int[128];
+        char prev;
+        int first = 1;
+        for(char c : s_array){
+            int count = 0;
+            if(first == 1){
+                first = 0;
+                count++;
+            }
+            else if(prev==c){
+                
+            }
+            prev = c;
+        }
+        return "";
+    }
 }
