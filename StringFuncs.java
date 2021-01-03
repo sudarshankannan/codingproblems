@@ -170,20 +170,22 @@ class StringFuncs{
         int count = 0;
         for(char c : s_array){
             if(first == 1){
-                System.out.println(c + " first");
+                //System.out.println(c + " first");
                 first = 0;
             }
             else if(prev==c){
-                System.out.println(c + " prev=="+c);
+                //System.out.println(c + " prev=="+c);
             }
             else if(first==0 && prev != c){
-                System.out.println(c + " prev!="+c);
+                //System.out.println(c + " prev!="+c);
                 result+=(Character.toString(prev) + Integer.toString(count));
                 count = 0;
             }
             ++count;
+            //System.out.println(count);
             prev = c;
         }
+        result+=(Character.toString(prev) + Integer.toString(count));
         return result;
     }
 }
