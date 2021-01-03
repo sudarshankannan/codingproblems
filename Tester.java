@@ -10,6 +10,8 @@ class Tester{
         //System.out.println(tester1.oneAway("racecar","racecar")); //same string
         //System.out.println(tester1.oneAway("racear","racecar")); //one insertion string
 
-        System.out.println(tester1.stringComp("aabcccccaaa"));
+        //System.out.println(tester1.stringComp("aabcccccaaa"));
+
+        System.out.println(tester1.isSubstring("waterbottle","erbottlewat"));
     }
 }

@@ -212,4 +212,35 @@ class StringFuncs{
         }
         return arr;
     }
+    //string rotation
+    boolean isSubstring(String s, String t){
+        //false if diff lengths
+        if(s.length() != t.length()){
+            return false;
+        }
+        if(s.equals(t)){
+            return true;
+        }
+        String sub = null;
+        String partString = null;
+        boolean partMatch = false;
+        int partCount = 0;
+        for(int i=1; i<s.length(); i++){
+            sub = s.substring(0, i);
+            if(partMatch){ //if there is a partial match, we need to start looping to beginning of t and check those chars
+                partCount++;
+                partString+=(t.substring(partCount-1,partCount));
+                if(!sub.equals(partString)){
+                    return false;
+                }
+            }
+            else if(sub.equals(t.substring(t.length()-i, t.length()))){ //obtain partial match string
+                partMatch = true;
+                partString = t.substring(t.length()-i, t.length());
+            }
+        }
+        return true;
+        //"waterbottle"
+        //"erbottlewat"
+    }
 }
