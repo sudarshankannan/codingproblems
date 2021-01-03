@@ -162,21 +162,28 @@ class StringFuncs{
     }
     //stringComp
     String stringComp(String s){
+        //a2b1c5a3
+        String result = "";
         char[] s_array = s.toCharArray();
-        int[] charcounts = new int[128];
-        char prev;
+        char prev = '/';
         int first = 1;
+        int count = 0;
         for(char c : s_array){
-            int count = 0;
             if(first == 1){
+                System.out.println(c + " first");
                 first = 0;
-                count++;
             }
             else if(prev==c){
-                
+                System.out.println(c + " prev=="+c);
             }
+            else if(first==0 && prev != c){
+                System.out.println(c + " prev!="+c);
+                result+=(Character.toString(prev) + Integer.toString(count));
+                count = 0;
+            }
+            ++count;
             prev = c;
         }
-        return "";
+        return result;
     }
 }

@@ -9,5 +9,7 @@ class Tester{
         //System.out.println(tester1.oneAway("racecar","racekad")); //same length, two diff chars
         //System.out.println(tester1.oneAway("racecar","racecar")); //same string
         //System.out.println(tester1.oneAway("racear","racecar")); //one insertion string
+
+        System.out.println(tester1.stringComp("aabcccccaaa"));
     }
 }
