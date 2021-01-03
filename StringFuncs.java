@@ -188,4 +188,28 @@ class StringFuncs{
         result+=(Character.toString(prev) + Integer.toString(count));
         return result;
     }
+    int[][] zeroMatrix(int[][] arr){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int row=0; row<arr.length; row++){
+            for(int col=0; col<arr[row].length; col++){
+                if(arr[row][col] == 0){
+                    list.add(row);
+                    list.add(col);
+                }
+            }
+        }
+        //make rows zero
+        for(int i=0; i<list.size(); i+=2){
+            for(int z=0; z<arr[i].length; z++){
+                arr[i][z] = 0;
+            }
+        }
+        //make cols zero
+        for(int i=1; i<list.size(); i+=2){
+            for(int z=0; z<arr.length; z++){
+                arr[z][i] = 0;
+            }
+        }
+        return arr;
+    }
 }
