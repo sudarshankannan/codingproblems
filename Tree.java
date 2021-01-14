@@ -1,4 +1,8 @@
-class Tree{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
+
+class Tree {
     TreeNode head;
     //constructor
     Tree(){
@@ -62,7 +66,43 @@ class Tree{
         }
         int mid = (start + end) /2;
         TreeNode n = new TreeNode(arr[mid]);
-        
+        n.left = createMinimalBST(arr, start, mid-1);
+        n.right = createMinimalBST(arr, mid+1, end);
         return n;
+    }
+    HashMap<Integer,ArrayList<TreeNode>> depthListRecursive(Tree tree){
+        //height val, list of nodes 
+        HashMap<Integer,ArrayList<TreeNode>> heightList = new HashMap<Integer,ArrayList<TreeNode>>();
+        //iterative inorder traversal
+        Stack<TreeNode> s1 = new Stack<TreeNode>();
+        Stack<TreeNode> s2 = new Stack<TreeNode>();
+        
+        return null;
+    }
+    HashMap<Integer,ArrayList<TreeNode>> depthListIterative(TreeNode node, HashMap<Integer,ArrayList<TreeNode>> heightList){
+        //height val, list of nodes 
+        HashMap<Integer,ArrayList<TreeNode>> heightList = new HashMap<Integer,ArrayList<TreeNode>>();
+        //iterative inorder traversal
+        Stack<TreeNode> s1 = new Stack<TreeNode>();
+        Stack<TreeNode> s2 = new Stack<TreeNode>();
+        
+        return null;
+    }
+    //getHeight
+    int getHeight(TreeNode node){
+        if(node==null){
+            return -1;
+        }
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+    void inorder(TreeNode node){
+        if(node==null){
+            return;
+        }
+        inorder(node.left);
+        System.out.println(node.data + " ");
+        inorder(node.right);
     }
 }
