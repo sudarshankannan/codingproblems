@@ -70,23 +70,73 @@ class Tree {
         n.right = createMinimalBST(arr, mid+1, end);
         return n;
     }
-    HashMap<Integer,ArrayList<TreeNode>> depthListRecursive(Tree tree){
+    HashMap<Integer,ArrayList<TreeNode>> depthListIterative(Tree tree){
         //height val, list of nodes 
         HashMap<Integer,ArrayList<TreeNode>> heightList = new HashMap<Integer,ArrayList<TreeNode>>();
-        //iterative inorder traversal
+        //create stack
         Stack<TreeNode> s1 = new Stack<TreeNode>();
         Stack<TreeNode> s2 = new Stack<TreeNode>();
-        
-        return null;
+        //traversal
+        TreeNode p = tree.head;
+        while(s1.empty() == false || p!=null){
+            //go left
+            while(p != null){
+                s1.push(p);
+                p = p.left;
+            }
+            //add to arraylist
+            Integer tempHeight = getHeight(p);
+            if(heightList.containsKey(tempHeight) == true){
+                heightList.get(tempHeight).add(p);
+            }
+            else{
+                heightList.put(tempHeight, new ArrayList<TreeNode>());
+                heightList.get(tempHeight).add(p);
+            }
+            p = s1.pop();
+        }
+        return heightList;
     }
-    HashMap<Integer,ArrayList<TreeNode>> depthListIterative(TreeNode node, HashMap<Integer,ArrayList<TreeNode>> heightList){
-        //height val, list of nodes 
-        HashMap<Integer,ArrayList<TreeNode>> heightList = new HashMap<Integer,ArrayList<TreeNode>>();
-        //iterative inorder traversal
+    void depthListRecursive(TreeNode node, HashMap<Integer,ArrayList<TreeNode>> heightList){
+        //base case
+        if(node == null){
+            return;
+        }
+        //recurse left
+        depthListRecursive(node.left, heightList);
+        //add node to arraylist
+        Integer tempHeight = getHeight(node);
+        if(heightList.containsKey(tempHeight) == true){
+            heightList.get(tempHeight).add(node);
+        }
+        else{
+            heightList.put(tempHeight, new ArrayList<TreeNode>());
+            heightList.get(tempHeight).add(node);
+        }
+        //recurse right
+        depthListRecursive(node.right, heightList);
+    }
+    //checkBalanced
+    boolean checkBalanced(){
+        //create stack
         Stack<TreeNode> s1 = new Stack<TreeNode>();
         Stack<TreeNode> s2 = new Stack<TreeNode>();
-        
-        return null;
+        //traversal
+        TreeNode p = this.head;
+        while(s1.empty() == false || p!=null){
+            //go left
+            while(p != null){
+                s1.push(p);
+                p = p.left;
+            }
+            //check height balance at a node
+            if(Math.abs((double)(getHeight(p.left)-getHeight(p.right))) > 1){
+                return false;
+            }
+            //hit the right 
+            p = s1.pop();
+        }
+        return true;
     }
     //getHeight
     int getHeight(TreeNode node){
