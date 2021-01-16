@@ -29,10 +29,12 @@ class Tree {
             else if(p.data>data){
                 if(p.left==null && p.right==null){
                     p.left = nuNode;
+                    nuNode.parent = p;
                     return;
                 }
                 else if(p.left==null && p.right!=null){
                     p.left = nuNode;
+                    nuNode.parent = p;
                     return;
                 }
                 else{
@@ -43,10 +45,12 @@ class Tree {
             else if(p.data<data){
                 if(p.left==null && p.right==null){
                     p.right = nuNode;
+                    nuNode.parent = p;
                     return;
                 }
                 else if(p.right==null && p.left!=null){
                     p.right = nuNode;
+                    nuNode.parent = p;
                     return;
                 }
                 else{
@@ -75,7 +79,6 @@ class Tree {
         HashMap<Integer,ArrayList<TreeNode>> heightList = new HashMap<Integer,ArrayList<TreeNode>>();
         //create stack
         Stack<TreeNode> s1 = new Stack<TreeNode>();
-        Stack<TreeNode> s2 = new Stack<TreeNode>();
         //traversal
         TreeNode p = tree.head;
         while(s1.empty() == false || p!=null){
@@ -120,7 +123,6 @@ class Tree {
     boolean checkBalanced(){
         //create stack
         Stack<TreeNode> s1 = new Stack<TreeNode>();
-        Stack<TreeNode> s2 = new Stack<TreeNode>();
         //traversal
         TreeNode p = this.head;
         while(s1.empty() == false || p!=null){
@@ -154,5 +156,61 @@ class Tree {
         inorder(node.left);
         System.out.println(node.data + " ");
         inorder(node.right);
+    }
+    //isBST
+    boolean isBST(){
+        //create stack
+        Stack<TreeNode> s1 = new Stack<TreeNode>();
+        //traversal
+        TreeNode p = this.head;
+        while(s1.empty() == false || p!=null){
+            //go left
+            while(p != null){
+                s1.push(p);
+                p = p.left;
+            }
+            //left and right node present
+            if(p.left == null && p.right == null){
+                //do nothing
+            }
+            else if(p.left != null && p.right != null){
+                if((p.left.data >= p.data) || (p.right.data <= p.data)){
+                    return false;
+                }
+            }
+            else if(p.right == null && p.left.data >= p.data){
+                return false;
+            }
+            else if(p.left == null && p.right.data <= p.data){
+                return false;
+            }
+            //hit the right 
+            p = s1.pop();
+        }
+        return true;
+    }
+    //inorderSucc
+    TreeNode inorderSucc(TreeNode node){
+        if(node == null){
+            return null;
+        }
+        TreeNode n = node;
+        if(n.right != null){
+            n = n.right;
+            while(n.left != null){
+                n = n.left;
+            }
+            System.out.println(n.data);
+            return n;
+        } 
+        else {
+            TreeNode x = n.parent;
+            while (x != null && x.left != n){
+                n = x;
+                x = x.parent;
+            }
+            System.out.println(x.data);
+            return x;
+        }
     }
 }
